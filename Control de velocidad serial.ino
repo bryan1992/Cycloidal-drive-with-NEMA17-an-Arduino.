@@ -10,8 +10,8 @@ const int enPin = 8;
 //const int limitx = 9;
 //const int limity = 10;
 
-int Tiempo = 0;
-long i = 0;
+int Tiempo=0;
+int i;
 
 void setup() {
   //Declaraciòn de salidas e inicializaciòn.
@@ -21,39 +21,37 @@ void setup() {
   digitalWrite(enPin,LOW);
   digitalWrite(dirX,HIGH);
   Serial.begin(9600);
-  Serial.setTimeout(50);
+  Serial.setTimeout(10);
   }
 
 void loop() {
-    //Los pulsos seràn de 500 a 1000 microsegundos.
-    if (Serial.available() >0) 
+    //Los pulsos serán de 500 a 1000 microsegundos.
+    if (Serial.available() > 0) 
     {i = Serial.parseInt();
     // Signo positivo implica sentido antihorario.
-    if(i>0)
+    if(i > 0)
     {digitalWrite(dirX,HIGH);
-    if(i>1000)
-    {i=1000;}
-    if(i<500)
-    {i=500;}
+    if(i > 2000)
+    {i =2000;}
+    if(i < 450)
+    {i = 450;}
     }
     
     // Signo negativo implica sentido horario.
-    if(i<0)
+    if(i < 0)
     {digitalWrite(dirX,LOW);
-    if(i<=-1000)
-    {i=-1000;}
-    if(i>=-500)
-    {i=-500;}
-    i=i*-1;}
+    if(i <=-2000)
+    {i =-2000;}
+    if(i >=-450)
+    {i = -450;}
+    i = i*-1;}
 
-    //Signo neutro (cero) implica que el motor detendrà su marcha.
-    if(i==0)
-    {i=i;}
-
-    Serial.println(i);
-    Tiempo = i;}
-
-    if(Tiempo!=0)    
+    //Signo neutro (cero) implica que el motor detendrá su marcha.
+    Tiempo = i;
+    Serial.println(Tiempo);
+    }
+    
+    if(Tiempo != 0)    
     {
     //Pulsos de control al motor.
     digitalWrite(stepX,HIGH);
